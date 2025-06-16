@@ -26,13 +26,13 @@ test("can convert 0 to 19", () => {
 
 test("throws error for floating point numbers", () => {
   expect(() => convert_num_to_fr_fr_text(1.5)).toThrow(
-    "this function only handles int"
+    "this function only handles int",
   );
   expect(() => convert_num_to_fr_fr_text(-0.1)).toThrow(
-    "this function only handles int"
+    "this function only handles int",
   );
   expect(() => convert_num_to_fr_fr_text(10.0001)).toThrow(
-    "this function only handles int"
+    "this function only handles int",
   );
 });
 
@@ -109,7 +109,7 @@ test("can convert numbers in the range 100-999", () => {
   expect(convert_num_to_fr_fr_text(777)).toBe("sept-cent-soixante-dix-sept");
   expect(convert_num_to_fr_fr_text(888)).toBe("huit-cent-quatre-vingt-huit");
   expect(convert_num_to_fr_fr_text(999)).toBe(
-    "neuf-cent-quatre-vingt-dix-neuf"
+    "neuf-cent-quatre-vingt-dix-neuf",
   );
   expect(convert_num_to_fr_fr_text(-321)).toBe("moins trois-cent-vingt-et-un");
 });
@@ -121,7 +121,7 @@ test("can convert round thousands", () => {
   expect(convert_num_to_fr_fr_text(10000)).toBe("dix-mille");
   expect(convert_num_to_fr_fr_text(100000)).toBe("cent-mille");
   expect(convert_num_to_fr_fr_text(999000)).toBe(
-    "neuf-cent-quatre-vingt-dix-neuf-mille"
+    "neuf-cent-quatre-vingt-dix-neuf-mille",
   );
 });
 
@@ -133,17 +133,17 @@ test("can convert numbers in the range 1000-999999", () => {
   expect(convert_num_to_fr_fr_text(2001)).toBe("deux-mille-un");
   expect(convert_num_to_fr_fr_text(2020)).toBe("deux-mille-vingt");
   expect(convert_num_to_fr_fr_text(9999)).toBe(
-    "neuf-mille-neuf-cent-quatre-vingt-dix-neuf"
+    "neuf-mille-neuf-cent-quatre-vingt-dix-neuf",
   );
   expect(convert_num_to_fr_fr_text(100000)).toBe("cent-mille");
   expect(convert_num_to_fr_fr_text(101001)).toBe("cent-un-mille-un");
   expect(convert_num_to_fr_fr_text(123456)).toBe(
-    "cent-vingt-trois-mille-quatre-cent-cinquante-six"
+    "cent-vingt-trois-mille-quatre-cent-cinquante-six",
   );
   expect(convert_num_to_fr_fr_text(999999)).toBe(
-    "neuf-cent-quatre-vingt-dix-neuf-mille-neuf-cent-quatre-vingt-dix-neuf"
+    "neuf-cent-quatre-vingt-dix-neuf-mille-neuf-cent-quatre-vingt-dix-neuf",
   );
   expect(convert_num_to_fr_fr_text(-123456)).toBe(
-    "moins cent-vingt-trois-mille-quatre-cent-cinquante-six"
+    "moins cent-vingt-trois-mille-quatre-cent-cinquante-six",
   );
 });

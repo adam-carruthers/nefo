@@ -1,5 +1,5 @@
-import './App.css'
-import Menu from './Menu'
+import "./App.css";
+import Menu from "./Menu";
 
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       <h1>Nefo</h1>
       <Menu />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
