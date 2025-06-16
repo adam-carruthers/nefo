@@ -1,25 +1,23 @@
 import { useEffect, useState } from "react";
-import './Menu.css';
+import "./Menu.css";
 import WordsToDigits from "./WordsToDigits";
-import { getRandomList } from "./randomUtils";
-
-const N_QUESTIONS = 5;
+import { generateQuestions, type Question } from "./wordsToDigits";
 
 function Menu() {
-  const [mode, setMode] = useState('menu');
-  const [randState, setRandState] = useState<number[] | null>(null);
+  const [mode, setMode] = useState("menu");
+  const [questions, setQuestions] = useState<Question[] | null>(null);
 
   const startGame = (mode: string) => {
-    const generatedRandState = getRandomList(N_QUESTIONS);
-    setRandState(generatedRandState);
+    setQuestions(generateQuestions());
     setMode(mode);
-  }
+  };
 
   useEffect(() => {
-    console.log("hi")
-  }, [])
+    console.log("hi");
+  }, []);
 
-  if (mode == 'words-to-digits' && randState) return <WordsToDigits randState={randState} />
+  if (mode == "words-to-digits" && questions)
+    return <WordsToDigits questions={questions} />;
 
   return <MenuOptions startGame={startGame} />;
 }
@@ -31,8 +29,12 @@ interface MenuOptionsProps {
 function MenuOptions({ startGame }: MenuOptionsProps) {
   return (
     <div className="menu-buttons">
-      <button onClick={() => startGame('words-to-digits')}>Words → Digits</button>
-      <button onClick={() => startGame('digits-to-words')}>Digits → Words</button>
+      <button onClick={() => startGame("words-to-digits")}>
+        Words → Digits
+      </button>
+      <button onClick={() => startGame("digits-to-words")}>
+        Digits → Words
+      </button>
     </div>
   );
 }

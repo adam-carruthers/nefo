@@ -1,42 +1,64 @@
-import { useMemo } from "react"
-import { convertRandomToRandomInt } from "./randomUtils";
-import convert_num_to_fr_fr_text from "./translations/fr-fr";
+import { useRef, useState } from "react";
+import type { Question } from "./wordsToDigits";
 
 interface WordsToDigitsProps {
-  randState: number[]
+  questions: Question[];
 }
 
-interface Question {
-  i: number;
-  n: number;
-  word: string;
-}
+function WordsToDigits({ questions }: WordsToDigitsProps) {
+  const [currentState, setCurrentState] = useState<
+    "q" | "correct" | "incorrect"
+  >("q");
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-function generateQuestionFromRandomNumber(rand: number, i: number): Question {
-  const n = convertRandomToRandomInt(rand, -999_999, 999_999);
-  const word = convert_num_to_fr_fr_text(n);
-  return {
-    i,
-    n,
-    word
-  }
-}
+  const currentQuestion = questions[currentIndex];
 
-function WordsToDigits({ randState }: WordsToDigitsProps) {
-  const questions = useMemo(() => randState.map(generateQuestionFromRandomNumber), [randState])
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const guess = inputRef.current?.value;
+
+    if (guess === currentQuestion.n.toString()) {
+      setCurrentState("correct");
+    } else {
+      setCurrentState("incorrect");
+    }
+  };
+
+  const nextQ = () => {
+    setCurrentState("q");
+    setCurrentIndex(currentIndex + 1);
+    if (inputRef.current) inputRef.current.value = "";
+  };
 
   return (
     <>
-      <h2>
-        Words to digits!
-      </h2>
-      {questions.map(q => (
-        <p key={q.i}>
-          {q.n} = {q.word}
+      <h2>Words to digits!</h2>
+      <p>
+        <i>
+          Question {currentIndex + 1}/{questions.length}
+        </i>
+      </p>
+      <p>{currentQuestion.word}</p>
+      {currentState === "correct" && <p>That's correct!</p>}
+      {currentState === "incorrect" && (
+        <p>That's not correct. It is {currentQuestion.n}.</p>
+      )}
+      {currentState !== "q" && (
+        <p>
+          <button onClick={nextQ}>Next</button>
         </p>
-      ))}
+      )}
+      <form onSubmit={onSubmit}>
+        <fieldset disabled={currentState !== "q"}>
+          <input ref={inputRef} type="number" />
+          <input type="submit" />
+        </fieldset>
+      </form>
     </>
-  )
+  );
 }
 
-export default WordsToDigits
+export default WordsToDigits;
