@@ -4,6 +4,7 @@ import vike from "vike/plugin";
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "/nefo/",
   plugins: [react(), vike()],
   test: {
     environment: "jsdom",
