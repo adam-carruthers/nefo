@@ -12,12 +12,14 @@ function Menu() {
     setMode(mode);
   };
 
+  const goHome = () => setMode("menu");
+
   useEffect(() => {
     console.log("hi");
   }, []);
 
   if (mode == "words-to-digits" && questions)
-    return <WordsToDigits questions={questions} />;
+    return <WordsToDigits questions={questions} goHome={goHome} />;
 
   return <MenuOptions startGame={startGame} />;
 }
