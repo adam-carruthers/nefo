@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react";
 import "./Menu.css";
-import WordsToDigits from "./WordsToDigits";
-import { generateQuestions, type Question } from "./wordsToDigits";
+import SimpleQuiz from "./simpleQuiz";
+import {
+  generateDigitToWordQuestions,
+  generateWordToDigitQuestions,
+  type SimpleQuestion,
+} from "./simpleQuestion";
+
+const N_QUESTIONS = 5;
 
 function Menu() {
   const [mode, setMode] = useState("menu");
-  const [questions, setQuestions] = useState<Question[] | null>(null);
+  const [questions, setQuestions] = useState<SimpleQuestion[] | null>(null);
 
   const startGame = (mode: string) => {
-    setQuestions(generateQuestions());
+    if (mode == "words-to-digits")
+      setQuestions(generateWordToDigitQuestions(N_QUESTIONS));
+    else if (mode == "digits-to-words")
+      setQuestions(generateDigitToWordQuestions(N_QUESTIONS));
     setMode(mode);
   };
 
@@ -19,7 +28,11 @@ function Menu() {
   }, []);
 
   if (mode == "words-to-digits" && questions)
-    return <WordsToDigits questions={questions} goHome={goHome} />;
+    return (
+      <SimpleQuiz questions={questions} goHome={goHome} inputType="number" />
+    );
+  if (mode == "digits-to-words" && questions)
+    return <SimpleQuiz questions={questions} goHome={goHome} />;
 
   return <MenuOptions startGame={startGame} />;
 }
