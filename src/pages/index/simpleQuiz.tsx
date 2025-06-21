@@ -2,12 +2,13 @@ import type { SimpleQuestion } from "./simpleQuestion";
 import useQuestions from "./useQuestions";
 
 interface SimpleQuizProps {
+  title: string;
   questions: SimpleQuestion[];
   inputType?: "number" | undefined;
   goHome: () => void;
 }
 
-function SimpleQuiz({ questions, goHome, inputType }: SimpleQuizProps) {
+function SimpleQuiz({ title, questions, goHome, inputType }: SimpleQuizProps) {
   const {
     currentState,
     currentIndex,
@@ -21,7 +22,7 @@ function SimpleQuiz({ questions, goHome, inputType }: SimpleQuizProps) {
 
   return (
     <>
-      <h2>Words to digits!</h2>
+      <h2>{title}</h2>
       <p>
         <i>
           Question {currentIndex + 1}/{questions.length}

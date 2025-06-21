@@ -29,10 +29,21 @@ function Menu() {
 
   if (mode == "words-to-digits" && questions)
     return (
-      <SimpleQuiz questions={questions} goHome={goHome} inputType="number" />
+      <SimpleQuiz
+        title="Words to digits!"
+        questions={questions}
+        goHome={goHome}
+        inputType="number"
+      />
     );
   if (mode == "digits-to-words" && questions)
-    return <SimpleQuiz questions={questions} goHome={goHome} />;
+    return (
+      <SimpleQuiz
+        title="Digits to words!"
+        questions={questions}
+        goHome={goHome}
+      />
+    );
 
   return <MenuOptions startGame={startGame} />;
 }
