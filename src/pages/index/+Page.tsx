@@ -1,4 +1,4 @@
-import "./App.css";
+import "./Page.css";
 import Menu from "./Menu";
 
 function App() {
