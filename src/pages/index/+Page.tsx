@@ -1,10 +1,10 @@
-import "./Page.css";
 import Menu from "./Menu";
+import Navbar from "./Navbar";
 
 function App() {
   return (
     <>
-      <h1>Nefo</h1>
+      <Navbar />
       <Menu />
     </>
   );

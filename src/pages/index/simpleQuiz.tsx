@@ -1,5 +1,7 @@
+import { Button } from "@/components/ui/button";
 import type { SimpleQuestion } from "./simpleQuestion";
 import useQuestions from "./useQuestions";
+import { Input } from "@/components/ui/input";
 
 interface SimpleQuizProps {
   title: string;
@@ -21,44 +23,51 @@ function SimpleQuiz({ title, questions, goHome, inputType }: SimpleQuizProps) {
   } = useQuestions(questions);
 
   return (
-    <>
-      <h2>{title}</h2>
-      <p>
-        <i>
-          Question {currentIndex + 1}/{questions.length}
-        </i>
-      </p>
-      <p>{currentQuestion.question}</p>
-      {currentState === "correct" && <p>That's correct!</p>}
-      {currentState === "incorrect" && (
-        <>
-          <p>
-            You wrote {err}. That's not correct. It is {currentQuestion.answer}.
-          </p>
-        </>
-      )}
-      {currentState !== "q" && currentIndex < questions.length - 1 && (
+    <div className="flex min-h-screen items-center justify-center bg-slate-400">
+      <div className="w-full max-w-md p-6 bg-white rounded shadow">
+        <h2 className="text-xl font-bold">{title}</h2>
         <p>
-          <button onClick={nextQ}>Next</button>
+          <i>
+            Question {currentIndex + 1}/{questions.length}
+          </i>
         </p>
-      )}
-      {currentState !== "q" && currentIndex == questions.length - 1 && (
-        <>
+        <p>{currentQuestion.question}</p>
+        {currentState === "correct" && <p>That's correct!</p>}
+        {currentState === "incorrect" && (
+          <>
+            <p>
+              You wrote {err}. That's not correct. It is{" "}
+              {currentQuestion.answer}.
+            </p>
+          </>
+        )}
+        {currentState !== "q" && currentIndex < questions.length - 1 && (
           <p>
-            The quiz is over! You scored {correctCounter}/{questions.length}.
+            <Button onClick={nextQ}>Next</Button>
           </p>
-          <p>
-            <button onClick={goHome}>Return to homepage</button>
-          </p>
-        </>
-      )}
-      {currentState === "q" && (
-        <form onSubmit={onSubmit}>
-          <input ref={inputRef} type={inputType} />
-          <input type="submit" />
-        </form>
-      )}
-    </>
+        )}
+        {currentState !== "q" && currentIndex == questions.length - 1 && (
+          <>
+            <p>
+              The quiz is over! You scored {correctCounter}/{questions.length}.
+            </p>
+            <p>
+              <Button onClick={goHome}>Return to homepage</Button>
+            </p>
+          </>
+        )}
+        {currentState === "q" && (
+          <form onSubmit={onSubmit}>
+            <div className="flex w-full max-w-sm items-center gap-2">
+              <Input ref={inputRef} type={inputType} />
+              <Button type="submit" variant="outline">
+                Submit
+              </Button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
   );
 }
 

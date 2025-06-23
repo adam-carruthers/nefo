@@ -1,6 +1,6 @@
 import type { Question } from "./questionBase";
 import { randInt } from "./randomUtils";
-import convert_num_to_fr_fr_text from "./translations/fr-fr";
+import convert_num_to_fr_fr_text from "@/translations/fr-fr";
 
 export interface SimpleQuestion extends Question {
   question: string;

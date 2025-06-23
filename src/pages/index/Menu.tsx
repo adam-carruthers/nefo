@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import "./Menu.css";
 import SimpleQuiz from "./simpleQuiz";
 import {
   generateDigitToWordQuestions,
   generateWordToDigitQuestions,
   type SimpleQuestion,
 } from "./simpleQuestion";
+import { Button } from "@/components/ui/button";
 
 const N_QUESTIONS = 5;
 
@@ -54,13 +54,18 @@ interface MenuOptionsProps {
 
 function MenuOptions({ startGame }: MenuOptionsProps) {
   return (
-    <div className="menu-buttons">
-      <button onClick={() => startGame("words-to-digits")}>
-        Words → Digits
-      </button>
-      <button onClick={() => startGame("digits-to-words")}>
-        Digits → Words
-      </button>
+    <div className="flex items-center justify-center min-h-screen text-center">
+      <div className="text-center">
+        <h1 className="text-3xl font-extrabold mb-8">Nefo</h1>
+        <div className="flex flex-col gap-4">
+          <Button onClick={() => startGame("words-to-digits")}>
+            Words → Digits
+          </Button>
+          <Button onClick={() => startGame("digits-to-words")}>
+            Digits → Words
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
