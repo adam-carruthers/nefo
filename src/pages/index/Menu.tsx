@@ -59,6 +59,11 @@ function MenuOptions({ startGame }: MenuOptionsProps) {
           <img src={icon} alt="Nefo Icon" className="w-40 h-40 mb-2" />
           <h1 className="text-3xl font-extrabold">Nefo</h1>
         </div>
+        <div className="my-8">
+          <p>A tool for learning numbers in a foreign language.</p>
+          <p>Currently only for English speakers learning French.</p>
+          <p className="font-bold">Try one of our quizzes below!</p>
+        </div>
         <div className="flex flex-col gap-4 max-w-48 items-center justify-center m-auto">
           <Button onClick={() => startGame("words-to-digits")}>
             Words → Digits
