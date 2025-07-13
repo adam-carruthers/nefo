@@ -7,5 +7,6 @@ export default {
   // favicon: "/vite.svg",
   extends: [vikeReact],
   prerender: true,
-  favicon: icon
+  favicon: icon,
+  title: 'Nefo'
 };

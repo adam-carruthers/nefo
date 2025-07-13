@@ -25,13 +25,12 @@ function SimpleQuiz({ title, questions, goHome, inputType }: SimpleQuizProps) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-400">
       <div className="w-full max-w-md p-6 bg-white rounded shadow">
-        <h2 className="text-xl font-bold">{title}</h2>
         <p>
           <i>
-            Question {currentIndex + 1}/{questions.length}
+            Question {currentIndex + 1}/{questions.length} - {title}
           </i>
         </p>
-        <p>{currentQuestion.question}</p>
+        <h2 className="text-xl font-bold my-5">{currentQuestion.question}</h2>
         {currentState === "correct" && <p>That's correct!</p>}
         {currentState === "incorrect" && (
           <>
