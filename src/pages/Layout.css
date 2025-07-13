@@ -79,6 +79,18 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+.green-theme {
+  --primary: var(--color-green-900);
+  --primary-foreground: oklch(0.985 0 0);
+  --background: var(--color-green-200);
+}
+
+.red-theme {
+  --primary: var(--color-red-900);
+  --primary-foreground: oklch(0.985 0 0);
+  --background: var(--color-red-200);
+}
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
