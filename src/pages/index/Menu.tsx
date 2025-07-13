@@ -53,13 +53,13 @@ interface MenuOptionsProps {
 
 function MenuOptions({ startGame }: MenuOptionsProps) {
   return (
-    <div className="flex items-center justify-center min-h-screen text-center">
+    <div className="flex items-center justify-center grow text-center">
       <div className="text-center">
-        <div className="flex flex-col items-center mb-8 pointer-events-none">
+        <div className="flex flex-col items-center mb-3 pointer-events-none">
           <img src={icon} alt="Nefo Icon" className="w-40 h-40 mb-2" />
           <h1 className="text-3xl font-extrabold">Nefo</h1>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 max-w-48 items-center justify-center m-auto">
           <Button onClick={() => startGame("words-to-digits")}>
             Words → Digits
           </Button>

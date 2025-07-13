@@ -31,7 +31,7 @@ function SimpleQuiz({
   } = useQuestions(questions);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-violet-100">
+    <div className="grow flex items-center justify-center bg-violet-100">
       <div className="w-full max-w-md pt-6 px-0 bg-white rounded shadow">
         <p className="text-gray-600 px-6">
           Question {currentIndex + 1}/{questions.length} - {title}
