@@ -72,7 +72,9 @@ function SimpleQuiz({
               The quiz is over! You scored {correctCounter}/{questions.length}.
             </p>
             <p>
-              <Button onClick={goHome} className="w-100 mt-2">Return to homepage</Button>
+              <Button onClick={goHome} className="w-100 mt-2">
+                Return to homepage
+              </Button>
             </p>
           </div>
         )}
