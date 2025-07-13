@@ -62,7 +62,7 @@ function MenuOptions({ startGame }: MenuOptionsProps) {
         <div className="my-8 px-2">
           <p>A tool for learning numbers in a foreign language.</p>
           <p>Currently only for English speakers learning French.</p>
-          <p className="font-bold">Try one of our quizzes below!</p>
+          <p className="font-bold">Try one of the quizzes below!</p>
         </div>
         <div className="flex flex-col gap-4 max-w-48 items-center justify-center m-auto">
           <Button onClick={() => startGame("words-to-digits")}>
