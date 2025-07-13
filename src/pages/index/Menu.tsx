@@ -28,7 +28,7 @@ function Menu() {
     return (
       <SimpleQuiz
         title="Words to digits"
-        questionText="Write down the the digits of this number"
+        questionText="Write down this number in digits"
         questions={questions}
         goHome={goHome}
         inputType="number"
