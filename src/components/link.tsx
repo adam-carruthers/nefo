@@ -19,5 +19,9 @@ function Link({ href, children, ...rest }: LinkProps) {
 }
 
 function normalize(url: string): string {
-  return "/" + url.split("/").filter(Boolean).join("/");
+  return (
+    "/" +
+    url.split("/").filter(Boolean).join("/") +
+    (url.endsWith("/") ? "/" : "")
+  );
 }
