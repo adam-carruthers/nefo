@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SimpleQuiz from "./simpleQuiz";
 import {
   generateDigitToWordQuestions,
@@ -6,6 +6,7 @@ import {
   type SimpleQuestion,
 } from "./simpleQuestion";
 import { Button } from "@/components/ui/button";
+import icon from "@/assets/icon.svg";
 
 const N_QUESTIONS = 5;
 
@@ -22,10 +23,6 @@ function Menu() {
   };
 
   const goHome = () => setMode("menu");
-
-  useEffect(() => {
-    console.log("hi");
-  }, []);
 
   if (mode == "words-to-digits" && questions)
     return (
@@ -56,7 +53,10 @@ function MenuOptions({ startGame }: MenuOptionsProps) {
   return (
     <div className="flex items-center justify-center min-h-screen text-center">
       <div className="text-center">
-        <h1 className="text-3xl font-extrabold mb-8">Nefo</h1>
+        <div className="flex flex-col items-center mb-8 pointer-events-none">
+          <img src={icon} alt="Nefo Icon" className="w-40 h-40 mb-2" />
+          <h1 className="text-3xl font-extrabold">Nefo</h1>
+        </div>
         <div className="flex flex-col gap-4">
           <Button onClick={() => startGame("words-to-digits")}>
             Words → Digits

@@ -1,4 +1,5 @@
 import vikeReact from "vike-react/config";
+import icon from "@/assets/icon.svg";
 
 // https://vike.dev/config
 export default {
@@ -6,4 +7,5 @@ export default {
   // favicon: "/vite.svg",
   extends: [vikeReact],
   prerender: true,
+  favicon: icon
 };
