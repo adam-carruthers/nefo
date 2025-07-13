@@ -32,8 +32,15 @@ function SimpleQuiz({
 
   return (
     <div className="grow flex items-center justify-center bg-violet-100">
-      <div className="w-full max-w-md pt-6 px-0 bg-white rounded shadow">
-        <p className="text-gray-600 px-6">
+      <div className="w-full max-w-md pt-4 px-0 bg-white rounded shadow">
+        <Button
+          className="mx-6 px-0 py-0 text-gray-600"
+          variant="link"
+          onClick={goHome}
+        >
+          &lt; Return home
+        </Button>
+        <p className="text-primary px-6">
           Question {currentIndex + 1}/{questions.length} - {title}
         </p>
         <h2 className="text-lg font-bold my-1 px-6">{questionText}</h2>
