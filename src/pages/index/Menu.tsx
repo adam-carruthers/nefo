@@ -59,7 +59,7 @@ function MenuOptions({ startGame }: MenuOptionsProps) {
           <img src={icon} alt="Nefo Icon" className="w-40 h-40 mb-2" />
           <h1 className="text-3xl font-extrabold">Nefo</h1>
         </div>
-        <div className="my-8">
+        <div className="my-8 px-2">
           <p>A tool for learning numbers in a foreign language.</p>
           <p>Currently only for English speakers learning French.</p>
           <p className="font-bold">Try one of our quizzes below!</p>
