@@ -46,7 +46,7 @@ function SimpleQuiz({
               <CircleCheck /> That's correct!
             </div>
             {currentIndex < questions.length - 1 && (
-              <Button onClick={nextQ} className="w-100 mt-3 mb-2">
+              <Button onClick={nextQ} className="w-full mt-3 mb-2">
                 Next
               </Button>
             )}
@@ -60,7 +60,7 @@ function SimpleQuiz({
             <p>You wrote: {err}</p>
             <p>The correct answer is: {currentQuestion.answer}</p>
             {currentIndex < questions.length - 1 && (
-              <Button onClick={nextQ} className="w-100 mt-3 mb-2">
+              <Button onClick={nextQ} className="w-full mt-3 mb-2">
                 Next
               </Button>
             )}
@@ -80,9 +80,17 @@ function SimpleQuiz({
         )}
         {currentState === "q" && (
           <form onSubmit={onSubmit}>
-            <div className="flex w-100 mx-6 items-center gap-2 pb-10 pt-2">
-              <Input ref={inputRef} type={inputType} className="grow" />
-              <Button type="submit" variant="default">
+            <div className="flex flex-col sm:flex-row w-full px-6 items-center gap-2 pb-10 pt-2">
+              <Input
+                ref={inputRef}
+                type={inputType}
+                className="grow w-full sm:w-auto"
+              />
+              <Button
+                type="submit"
+                variant="default"
+                className="w-full sm:w-auto"
+              >
                 Submit
               </Button>
             </div>
