@@ -40,7 +40,7 @@ function SimpleQuiz({
         >
           &lt; Return home
         </Button>
-        <p className="text-primary px-6">
+        <p className="text-primary px-6 mb-2">
           Question {currentIndex + 1}/{questions.length} - {title}
         </p>
         <h2 className="text-lg font-bold my-1 px-6">{questionText}</h2>
