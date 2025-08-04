@@ -21,6 +21,7 @@ function Footer() {
           <span className="group-hover:underline">Treat me to a coffee 😊</span>
         </a>
       </p>
+      <p>&copy; Adam Carruthers 2025</p>
     </footer>
   );
 }
