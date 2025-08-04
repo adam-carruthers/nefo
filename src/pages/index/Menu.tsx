@@ -62,9 +62,21 @@ function MenuOptions({ startGame }: MenuOptionsProps) {
         <div className="my-8 px-2">
           <p>A tool for learning numbers in a foreign language.</p>
           <p>Currently only for English speakers learning French.</p>
-          <p className="font-bold">Try one of the quizzes below!</p>
+        </div>
+        <div className="my-8 px-2 gap-4">
+          <h2 className="font-bold mb-3">Learn how to count in French</h2>
+          <Button asChild>
+            <a
+              href="https://www.lawlessfrench.com/vocabulary/numbers-and-counting/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Read the counting rules (external site)
+            </a>
+          </Button>
         </div>
         <div className="flex flex-col gap-4 max-w-48 items-center justify-center m-auto">
+          <h2 className="font-bold">Quizzes!</h2>
           <Button onClick={() => startGame("words-to-digits")}>
             Words → Digits
           </Button>
