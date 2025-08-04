@@ -16,9 +16,9 @@ const ZERO_À_DIX_NEUF = [
   "quatorze",
   "quinze",
   "seize",
-  "dix-sept",
-  "dix-huit",
-  "dix-neuf",
+  "dix sept",
+  "dix huit",
+  "dix neuf",
 ];
 
 const SMALL_TENS = ["vingt", "trente", "quarante", "cinquante"];
@@ -31,16 +31,16 @@ function convert_num_0_to_19(n: number): string {
 
 function suffix_0_to_19(n: number): string {
   if (n == 0) return "";
-  if (n == 1) return "-et-un";
-  return "-" + convert_num_0_to_19(n);
+  if (n == 1) return " et un";
+  return " " + convert_num_0_to_19(n);
 }
 
 function convert_num_0_to_99(n: number): string {
   if (n <= 19) return convert_num_0_to_19(n);
 
-  if (n == 71) return "soixante-et-onze";
+  if (n == 71) return "soixante et onze";
   if (n == 80) return "quatre-vingts";
-  if (n == 81) return "quatre-vingt-un";
+  if (n == 81) return "quatre-vingt un";
 
   const tens_component = Math.floor(n / 10);
   if (2 <= tens_component && tens_component <= 5)
@@ -59,12 +59,12 @@ function convert_num_0_to_999(n: number): string {
   if (n <= 99) return convert_num_0_to_99(n);
 
   if (n == 100) return "cent";
-  if (n % 100 == 0) return convert_num_0_to_19(n / 100) + "-cents";
-  if (n < 200) return "cent-" + convert_num_0_to_99(n % 100);
+  if (n % 100 == 0) return convert_num_0_to_19(n / 100) + " cents";
+  if (n < 200) return "cent " + convert_num_0_to_99(n % 100);
 
   return (
     convert_num_0_to_19(Math.floor(n / 100)) +
-    "-cent-" +
+    " cent " +
     convert_num_0_to_99(n % 100)
   );
 }
@@ -75,12 +75,12 @@ function convert_num_0_to_999_999(n: number): string {
 
   if (n <= 999) return convert_num_0_to_999(n);
   if (n == 1000) return "mille";
-  if (n <= 1999) return "mille-" + convert_num_0_to_999(n % 1000);
-  if (n % 1000 == 0) return convert_num_0_to_999(n / 1000) + "-mille";
+  if (n <= 1999) return "mille " + convert_num_0_to_999(n % 1000);
+  if (n % 1000 == 0) return convert_num_0_to_999(n / 1000) + " mille";
 
   return (
     convert_num_0_to_999(Math.floor(n / 1000)) +
-    "-mille-" +
+    " mille " +
     convert_num_0_to_999(n % 1000)
   );
 }
