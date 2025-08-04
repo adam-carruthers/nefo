@@ -1,3 +1,5 @@
+import { MessageCircleMore } from "lucide-react";
+
 function Footer() {
   return (
     <footer className="bg-gray-100 py-4 px-4 space-y-2 text-gray-800 flex flex-col items-center justify-center text-center">
@@ -10,6 +12,15 @@ function Footer() {
           <span className="group-hover:underline">
             Explore the project on GitHub
           </span>
+        </a>
+      </p>
+      <p>
+        <a
+          href="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAZ__qKslGhUOFFZMEhKTVlFSjU2Rks5VUE1SFhJT0ZMSC4u"
+          className="flex items-center space-x-2 group justify-center"
+        >
+          <MessageCircleMore />
+          <span className="group-hover:underline">Give some feedback</span>
         </a>
       </p>
       <p>
