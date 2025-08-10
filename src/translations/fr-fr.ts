@@ -24,6 +24,13 @@ const ZERO_À_DIX_NEUF = [
 const SMALL_TENS = ["vingt", "trente", "quarante", "cinquante"];
 const LARGE_TENS = ["soixante", "quatre-vingt"];
 
+export const OPERATOR_MAP = {
+  "+": "plus",
+  "-": "moins",
+  "*": "fois",
+  "/": "divisé par",
+};
+
 function convert_num_0_to_19(n: number): string {
   if (n < 0 || n > 19) throw Error(`Number ${n} out-of-bounds 0-19`);
   return ZERO_À_DIX_NEUF[n];

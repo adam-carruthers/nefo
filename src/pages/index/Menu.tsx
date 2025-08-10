@@ -2,6 +2,8 @@ import { useState } from "react";
 import SimpleQuiz from "./simpleQuiz";
 import {
   generateDigitToWordQuestions,
+  generateMathsToDigitQuestions,
+  generateMathsToWordQuestions,
   generateWordToDigitQuestions,
   type SimpleQuestion,
 } from "./simpleQuestion";
@@ -19,6 +21,10 @@ function Menu() {
       setQuestions(generateWordToDigitQuestions(N_QUESTIONS));
     else if (mode == "digits-to-words")
       setQuestions(generateDigitToWordQuestions(N_QUESTIONS));
+    else if (mode == "maths-to-digits")
+      setQuestions(generateMathsToDigitQuestions(N_QUESTIONS));
+    else if (mode == "maths-to-words")
+      setQuestions(generateMathsToWordQuestions(N_QUESTIONS));
     setMode(mode);
   };
 
@@ -39,6 +45,25 @@ function Menu() {
       <SimpleQuiz
         title="Digits to words"
         questionText="Write this number in French"
+        questions={questions}
+        goHome={goHome}
+      />
+    );
+  if (mode == "maths-to-digits" && questions)
+    return (
+      <SimpleQuiz
+        title="Maths to digits"
+        questionText="Do the following calculation and write the number in digits"
+        questions={questions}
+        goHome={goHome}
+        inputType="number"
+      />
+    );
+  if (mode == "maths-to-words" && questions)
+    return (
+      <SimpleQuiz
+        title="Maths to digits"
+        questionText="Do the following calculation and write the number in French"
         questions={questions}
         goHome={goHome}
       />
@@ -82,6 +107,12 @@ function MenuOptions({ startGame }: MenuOptionsProps) {
           </Button>
           <Button onClick={() => startGame("digits-to-words")}>
             Digits → Words
+          </Button>
+          <Button onClick={() => startGame("maths-to-digits")}>
+            Maths → Digits
+          </Button>
+          <Button onClick={() => startGame("maths-to-words")}>
+            Maths → Words
           </Button>
         </div>
       </div>
