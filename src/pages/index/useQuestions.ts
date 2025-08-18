@@ -15,7 +15,7 @@ function useQuestions<Q extends Question>(questions: Q[]) {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const guess = inputRef.current?.value;
+    const guess = inputRef.current?.value.toLowerCase();
 
     if (guess === currentQuestion.answer) {
       setCorrectCounter(correctCounter + 1);
