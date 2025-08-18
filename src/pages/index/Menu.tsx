@@ -78,7 +78,7 @@ interface MenuOptionsProps {
 
 function MenuOptions({ startGame }: MenuOptionsProps) {
   return (
-    <div className="flex items-center justify-center grow text-center">
+    <div className="flex items-center justify-center grow text-center py-5">
       <div className="text-center">
         <div className="flex flex-col items-center mb-3 pointer-events-none">
           <img src={icon} alt="Nefo Icon" className="w-40 h-40 mb-2" />
