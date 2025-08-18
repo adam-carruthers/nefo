@@ -15,9 +15,9 @@ function useQuestions<Q extends Question>(questions: Q[]) {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const guess = inputRef.current?.value.toLowerCase().replaceAll('-', ' ');
+    const guess = inputRef.current?.value.toLowerCase();
 
-    if (guess === currentQuestion.answer.replaceAll('-', ' ')) {
+    if (guess?.replaceAll('-', ' ') === currentQuestion.answer.replaceAll('-', ' ')) {
       setCorrectCounter(correctCounter + 1);
       setCurrentState("correct");
     } else {
