@@ -24,7 +24,7 @@ const ZERO_À_DIX_NEUF = [
 const SMALL_TENS = ["vingt", "trente", "quarante", "cinquante"];
 const LARGE_TENS = ["soixante", "quatre-vingt"];
 
-export const OPERATOR_MAP = {
+export const OPERATOR_MAP_FR = {
   "+": "plus",
   "-": "moins",
   "*": "fois",

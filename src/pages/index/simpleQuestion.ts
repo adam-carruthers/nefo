@@ -1,6 +1,9 @@
 import type { Question } from "./questionBase";
+import type {
+  ConvertNumberToText,
+  OperatorMap,
+} from "@/context/language/context";
 import { randInt } from "./randomUtils";
-import convert_num_to_fr_fr_text, { OPERATOR_MAP } from "@/translations/fr-fr";
 
 export interface SimpleQuestion extends Question {
   question: string;
@@ -8,12 +11,13 @@ export interface SimpleQuestion extends Question {
 
 export function generateWordToDigitQuestions(
   n_questions: number,
+  convertNumberToText: ConvertNumberToText,
 ): SimpleQuestion[] {
   const questions: SimpleQuestion[] = [];
 
   for (let i = 0; i < n_questions; i++) {
     const n = randInt(-9_999, 9_999);
-    const word = convert_num_to_fr_fr_text(n);
+    const word = convertNumberToText(n);
     questions.push({
       answer: n.toString(),
       question: word,
@@ -25,9 +29,10 @@ export function generateWordToDigitQuestions(
 
 export function generateDigitToWordQuestions(
   n_questions: number,
+  convertNumberToText: ConvertNumberToText,
 ): SimpleQuestion[] {
   // Digit to word questions are just word to digit questions flipped around
-  return generateWordToDigitQuestions(n_questions).map(
+  return generateWordToDigitQuestions(n_questions, convertNumberToText).map(
     ({ answer, question }) => ({
       answer: question,
       question: answer,
@@ -37,10 +42,12 @@ export function generateDigitToWordQuestions(
 
 function getMathsQuestionText(
   first: number,
-  operator: keyof typeof OPERATOR_MAP,
+  operator: keyof OperatorMap,
   second: number,
+  convertNumberToText: ConvertNumberToText,
+  operatorMap: OperatorMap,
 ): string {
-  return `${convert_num_to_fr_fr_text(first)} ${OPERATOR_MAP[operator]} ${convert_num_to_fr_fr_text(second)}`;
+  return `${convertNumberToText(first)} ${operatorMap[operator]} ${convertNumberToText(second)}`;
 }
 
 interface RawMathQuestion {
@@ -50,11 +57,13 @@ interface RawMathQuestion {
 
 function generateMathsToDigitQuestionsRaw(
   n_questions: number,
+  convertNumberToText: ConvertNumberToText,
+  operatorMap: OperatorMap,
 ): RawMathQuestion[] {
   const questions: RawMathQuestion[] = [];
 
   for (let i = 0; i < n_questions; i++) {
-    const operator = "+-*/"[randInt(0, 3)] as keyof typeof OPERATOR_MAP;
+    const operator = "+-*/"[randInt(0, 3)] as keyof OperatorMap;
 
     const bound = "+-".indexOf(operator) !== -1 ? 100 : 10;
 
@@ -65,21 +74,45 @@ function generateMathsToDigitQuestionsRaw(
 
     if (operator == "+") {
       const n3 = n1 + n2;
-      question = getMathsQuestionText(n1, operator, n2);
+      question = getMathsQuestionText(
+        n1,
+        operator,
+        n2,
+        convertNumberToText,
+        operatorMap,
+      );
       answer = n3;
     } else if (operator == "-") {
       const n3 = n1 - n2;
-      question = getMathsQuestionText(n1, operator, n2);
+      question = getMathsQuestionText(
+        n1,
+        operator,
+        n2,
+        convertNumberToText,
+        operatorMap,
+      );
       answer = n3;
     } else if (operator == "*") {
       const n3 = n1 * n2;
-      question = getMathsQuestionText(n1, operator, n2);
+      question = getMathsQuestionText(
+        n1,
+        operator,
+        n2,
+        convertNumberToText,
+        operatorMap,
+      );
       answer = n3;
     } else {
       // operator == "/"
       const n3 = n1 * n2;
       // n1 = n3 / n2
-      question = getMathsQuestionText(n3, operator, n2);
+      question = getMathsQuestionText(
+        n3,
+        operator,
+        n2,
+        convertNumberToText,
+        operatorMap,
+      );
       answer = n1;
     }
 
@@ -94,8 +127,14 @@ function generateMathsToDigitQuestionsRaw(
 
 export function generateMathsToDigitQuestions(
   n_questions: number,
+  convertNumberToText: ConvertNumberToText,
+  operatorMap: OperatorMap,
 ): SimpleQuestion[] {
-  return generateMathsToDigitQuestionsRaw(n_questions).map((q) => ({
+  return generateMathsToDigitQuestionsRaw(
+    n_questions,
+    convertNumberToText,
+    operatorMap,
+  ).map((q) => ({
     ...q,
     answer: q.answer.toString(),
   }));
@@ -103,9 +142,15 @@ export function generateMathsToDigitQuestions(
 
 export function generateMathsToWordQuestions(
   n_questions: number,
+  convertNumberToText: ConvertNumberToText,
+  operatorMap: OperatorMap,
 ): SimpleQuestion[] {
-  return generateMathsToDigitQuestionsRaw(n_questions).map((q) => ({
+  return generateMathsToDigitQuestionsRaw(
+    n_questions,
+    convertNumberToText,
+    operatorMap,
+  ).map((q) => ({
     ...q,
-    answer: convert_num_to_fr_fr_text(q.answer),
+    answer: convertNumberToText(q.answer),
   }));
 }

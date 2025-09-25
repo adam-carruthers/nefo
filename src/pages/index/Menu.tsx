@@ -9,7 +9,14 @@ import {
 } from "./simpleQuestion";
 import { Button } from "@/components/ui/button";
 import icon from "@/assets/icon.svg";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import LanguageContext, { localeToInfo } from "@/context/language/context";
 
 const N_QUESTIONS = 5;
@@ -18,15 +25,42 @@ function Menu() {
   const [mode, setMode] = useState("menu");
   const [questions, setQuestions] = useState<SimpleQuestion[] | null>(null);
 
+  const lang = useContext(LanguageContext);
+
   const startGame = (mode: string) => {
+    if (!lang.numberLang)
+      throw new Error("Somehow startGame was called without a number lang");
+
     if (mode == "words-to-digits")
-      setQuestions(generateWordToDigitQuestions(N_QUESTIONS));
+      setQuestions(
+        generateWordToDigitQuestions(
+          N_QUESTIONS,
+          lang.numberLang.convertNumberToText,
+        ),
+      );
     else if (mode == "digits-to-words")
-      setQuestions(generateDigitToWordQuestions(N_QUESTIONS));
+      setQuestions(
+        generateDigitToWordQuestions(
+          N_QUESTIONS,
+          lang.numberLang.convertNumberToText,
+        ),
+      );
     else if (mode == "maths-to-digits")
-      setQuestions(generateMathsToDigitQuestions(N_QUESTIONS));
+      setQuestions(
+        generateMathsToDigitQuestions(
+          N_QUESTIONS,
+          lang.numberLang.convertNumberToText,
+          lang.numberLang.operatorMap,
+        ),
+      );
     else if (mode == "maths-to-words")
-      setQuestions(generateMathsToWordQuestions(N_QUESTIONS));
+      setQuestions(
+        generateMathsToWordQuestions(
+          N_QUESTIONS,
+          lang.numberLang.convertNumberToText,
+          lang.numberLang.operatorMap,
+        ),
+      );
     setMode(mode);
   };
 
@@ -82,7 +116,7 @@ function MenuOptions({ startGame }: MenuOptionsProps) {
   const lang = useContext(LanguageContext);
 
   return (
-    <div className="flex items-center justify-center grow text-center pt-5 pb-10">
+    <div className="flex items-start justify-center grow text-center pt-8 pb-10">
       <div className="text-center">
         <div className="flex flex-col items-center mb-3 pointer-events-none">
           <img src={icon} alt="Nefo Icon" className="w-40 h-40 mb-2" />
@@ -93,19 +127,23 @@ function MenuOptions({ startGame }: MenuOptionsProps) {
         </div>
         <div className="px-2 flex flex-col gap-4 max-w-48 items-center justify-center m-auto">
           <h2 className="font-bold">Choose the language of the numbers</h2>
-          <Select onValueChange={lang.setNumberLocale}>
+          <Select
+            onValueChange={lang.setNumberLocale}
+            value={lang.numberLang?.locale}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Select a language" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                {
-                  Object.entries(localeToInfo).map(
-                    ([locale, localeInfo]) => (
-                      <SelectItem value={locale} key={locale}>{localeInfo.nameWithDialect} - {localeInfo.convertNumberToText(1)}, {localeInfo.convertNumberToText(2)}, {localeInfo.convertNumberToText(3)}</SelectItem>
-                    )
-                  )
-                }
+                {Object.entries(localeToInfo).map(([locale, localeInfo]) => (
+                  <SelectItem value={locale} key={locale}>
+                    {localeInfo.nameWithDialect} -{" "}
+                    {localeInfo.convertNumberToText(1)},{" "}
+                    {localeInfo.convertNumberToText(2)},{" "}
+                    {localeInfo.convertNumberToText(3)}
+                  </SelectItem>
+                ))}
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -113,7 +151,9 @@ function MenuOptions({ startGame }: MenuOptionsProps) {
         {lang.numberLang && (
           <>
             <div className="my-8 px-2 gap-4">
-              <h2 className="font-bold mb-3">Learn how to count in {lang.numberLang.name}</h2>
+              <h2 className="font-bold mb-3">
+                Learn how to count in {lang.numberLang.name}
+              </h2>
               <Button asChild>
                 <a
                   href={lang.numberLang.countingRulesUrl}
