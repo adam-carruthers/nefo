@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import SimpleQuiz from "./simpleQuiz";
 import {
   generateDigitToWordQuestions,
@@ -9,6 +9,8 @@ import {
 } from "./simpleQuestion";
 import { Button } from "@/components/ui/button";
 import icon from "@/assets/icon.svg";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import LanguageContext, { localeToInfo } from "@/context/language/context";
 
 const N_QUESTIONS = 5;
 
@@ -77,44 +79,68 @@ interface MenuOptionsProps {
 }
 
 function MenuOptions({ startGame }: MenuOptionsProps) {
+  const lang = useContext(LanguageContext);
+
   return (
-    <div className="flex items-center justify-center grow text-center py-5">
+    <div className="flex items-center justify-center grow text-center pt-5 pb-10">
       <div className="text-center">
         <div className="flex flex-col items-center mb-3 pointer-events-none">
           <img src={icon} alt="Nefo Icon" className="w-40 h-40 mb-2" />
           <h1 className="text-3xl font-extrabold">Nefo</h1>
         </div>
-        <div className="my-8 px-2">
+        <div className="my-5 px-2">
           <p>A tool for learning numbers in a foreign language.</p>
-          <p>Currently only for English speakers learning French.</p>
         </div>
-        <div className="my-8 px-2 gap-4">
-          <h2 className="font-bold mb-3">Learn how to count in French</h2>
-          <Button asChild>
-            <a
-              href="https://www.lawlessfrench.com/vocabulary/numbers-and-counting/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Read the counting rules (external site)
-            </a>
-          </Button>
+        <div className="px-2 flex flex-col gap-4 max-w-48 items-center justify-center m-auto">
+          <h2 className="font-bold">Choose the language of the numbers</h2>
+          <Select onValueChange={lang.setNumberLocale}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select a language" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {
+                  Object.entries(localeToInfo).map(
+                    ([locale, localeInfo]) => (
+                      <SelectItem value={locale} key={locale}>{localeInfo.nameWithDialect} - {localeInfo.convertNumberToText(1)}, {localeInfo.convertNumberToText(2)}, {localeInfo.convertNumberToText(3)}</SelectItem>
+                    )
+                  )
+                }
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
-        <div className="flex flex-col gap-4 max-w-48 items-center justify-center m-auto">
-          <h2 className="font-bold">Quizzes!</h2>
-          <Button onClick={() => startGame("words-to-digits")}>
-            Words → Digits
-          </Button>
-          <Button onClick={() => startGame("digits-to-words")}>
-            Digits → Words
-          </Button>
-          <Button onClick={() => startGame("maths-to-digits")}>
-            Maths → Digits
-          </Button>
-          <Button onClick={() => startGame("maths-to-words")}>
-            Maths → Words
-          </Button>
-        </div>
+        {lang.numberLang && (
+          <>
+            <div className="my-8 px-2 gap-4">
+              <h2 className="font-bold mb-3">Learn how to count in {lang.numberLang.name}</h2>
+              <Button asChild>
+                <a
+                  href={lang.numberLang.countingRulesUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Read the counting rules (external site)
+                </a>
+              </Button>
+            </div>
+            <div className="flex flex-col gap-4 max-w-48 items-center justify-center m-auto">
+              <h2 className="font-bold">Quizzes!</h2>
+              <Button onClick={() => startGame("words-to-digits")}>
+                Words → Digits
+              </Button>
+              <Button onClick={() => startGame("digits-to-words")}>
+                Digits → Words
+              </Button>
+              <Button onClick={() => startGame("maths-to-digits")}>
+                Maths → Digits
+              </Button>
+              <Button onClick={() => startGame("maths-to-words")}>
+                Maths → Words
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
